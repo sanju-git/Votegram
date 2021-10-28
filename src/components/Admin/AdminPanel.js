@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
+import history from "../../services/History";
 import StorageService from "../../services/StorageService";
 import AdminMainContent from "./AdminMainContent";
 import CreatePoll from "./CreatePoll";
@@ -31,7 +32,7 @@ class AdminPanel extends React.Component {
   signOut = () => {
     let done = StorageService.removeUser();
     if (done) {
-      window.location.reload();
+      history.push("/");
     }
   };
 

@@ -112,7 +112,7 @@ class CreatePoll extends React.Component {
                   </div>
                 </div>
 
-                <div className="col-md-6">
+                <div style={{ float: "left" }} className="col-md-8">
                   <label style={{ float: "left" }}>Candidates</label>
                   <br />
                   <Select
@@ -123,7 +123,7 @@ class CreatePoll extends React.Component {
                     isMulti
                   />
                 </div>
-
+                <br />
                 <div className="mt-2 d-flex justify-content-end">
                   <button type="submit" className="btn btn-sm btn-primary">
                     Create

@@ -10,11 +10,6 @@ class VoterPanel extends React.Component {
     this.state = { option: "showPolls" };
   }
 
-  // componentDidMount = () => {
-  //   let user = StorageService.getUser();
-  //   this.setState({ user });
-  // };
-
   componentDidMount() {
     let user = StorageService.getUser();
     this.setState({ user });

@@ -1,5 +1,6 @@
 import React from "react";
 import AdminService from "../../services/AdminService";
+import history from "../../services/History";
 import PollService from "../../services/PollService";
 import StorageService from "../../services/StorageService";
 import VotingPage from "../VotingPage";
@@ -19,29 +20,38 @@ class ShowPolls extends React.Component {
     });
   }
 
+  // getPoll = (index) => {
+  //   let user = StorageService.getUser();
+  //   let { polls } = this.state;
+  //   let poll = polls[index];
+  //   if (user.type === "A") {
+  //     this.setState({ poll, showStats: true });
+  //   } else if (user.type === "V") {
+  //     if (poll.completed) {
+  //       this.setState({ poll, showStats: true });
+  //     } else {
+  //       this.setState({ showVotingPage: true, pollId: poll._id });
+  //     }
+  //   }
+  // };
+
   getPoll = (index) => {
     let user = StorageService.getUser();
     let { polls } = this.state;
     let poll = polls[index];
     if (user.type === "A") {
-      this.setState({ poll, showStats: true });
+      history.push("/" + poll._id + "/stats");
     } else if (user.type === "V") {
       if (poll.completed) {
         this.setState({ poll, showStats: true });
       } else {
-        this.setState({ showVotingPage: true, pollId: poll._id });
+        history.push("/" + user._id + "/" + poll._id);
       }
     }
   };
 
   render() {
-    let { polls = [], pollId, showVotingPage, showStats, poll } = this.state;
-    if (showStats) {
-      return <PollStats poll={poll} />;
-    }
-    if (showVotingPage) {
-      return <VotingPage pollId={pollId} />;
-    }
+    let { polls = [] } = this.state;
     if (polls.length > 0) {
       return (
         <div style={{ padding: 50 }}>

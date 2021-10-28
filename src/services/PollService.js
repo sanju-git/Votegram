@@ -23,6 +23,16 @@ class PollService {
         }
       });
   }
+
+  static getPoll(pollId) {
+    return http.get("/api/poll/" + pollId).then((response) => {
+      if (response.success) {
+        return response;
+      } else {
+        throw new Error();
+      }
+    });
+  }
 }
 
 export default PollService;

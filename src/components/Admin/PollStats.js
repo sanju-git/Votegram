@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import PollService from "../../services/PollService";
 
 // Chart.defaults.bar.scales.xAxes[0].categorySpacing = 0
 
@@ -10,8 +11,12 @@ class PollStats extends React.Component {
   }
 
   componentDidMount() {
-    let { poll } = this.props;
-    this.getPollStats(poll);
+    let { pollId } = this.props.match.params;
+    PollService.getPoll(pollId).then((response) => {
+      if (response.success) {
+        this.getPollStats(response.poll);
+      }
+    });
   }
 
   getPollStats = (poll) => {
@@ -71,7 +76,7 @@ class PollStats extends React.Component {
             />
           </div>
           <div className="d-flex justify-content-center align-items-center">
-            {poll.completed && (
+            {poll && poll.completed && (
               <div
                 className="d-flex justify-content-center align-items-center"
                 style={{

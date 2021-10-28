@@ -7,6 +7,8 @@ import Home from "./Home";
 import VoterPanel from "./components/Voter/VoterPanel";
 import AdminPanel from "./components/Admin/AdminPanel";
 import history from "./services/History";
+import VotingPage from "./components/VotingPage";
+import PollStats from "./components/Admin/PollStats";
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +28,8 @@ class App extends React.Component {
         <div className="App">
           <Switch>
             <Route path="/" exact component={Home}></Route>
+            <Route path="/:pollId/stats" exact component={PollStats}></Route>
+            <Route path="/:userId/:pollId" component={VotingPage}></Route>
             <Route path="/signin" exact component={Login}></Route>
             <Route path="/voter" exact component={VoterPanel}></Route>
             <Route path="/admin" exact component={AdminPanel}></Route>

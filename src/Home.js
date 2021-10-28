@@ -93,10 +93,9 @@ class Home extends React.Component {
         </div>
 
         <div className="mt-5">
-          <div className="row">
-            <div className="col-lg-2"></div>
+          <div className="row d-flex align-items-center justify-content-center">
             <div className="col-lg-2">
-              <div className="card quote">
+              <div style={{ height: 345 }} className="card quote">
                 <div style={{ height: "150px" }} className="card-image p-2">
                   <img
                     // className="quote"
@@ -115,7 +114,7 @@ class Home extends React.Component {
             </div>
 
             <div className="col-lg-2">
-              <div className="card quote">
+              <div style={{ height: 345 }} className="card quote">
                 <div style={{ height: "150px" }} className="card-image p-2">
                   <img
                     // className="quote"
@@ -134,11 +133,14 @@ class Home extends React.Component {
             </div>
 
             <div className="col-lg-2">
-              <div className="card quote">
-                <div style={{ height: "150px" }} className="card-image p-2">
+              <div style={{ height: 345 }} className="card quote">
+                <div
+                  style={{ height: "150px", marginTop: 30 }}
+                  className="card-image"
+                >
                   <img
                     // className="quote"
-                    style={{ height: "150px" }}
+                    style={{ height: "150px", width: 210 }}
                     src="/images/mail.png"
                   />
                 </div>
@@ -155,7 +157,7 @@ class Home extends React.Component {
             </div>
 
             <div className="col-lg-2">
-              <div className="card quote">
+              <div style={{ height: 345 }} className="card quote">
                 <div style={{ height: "150px" }} className="card-image p-2">
                   <img
                     // className="quote"

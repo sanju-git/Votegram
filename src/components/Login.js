@@ -1,5 +1,6 @@
 import React from "react";
 import AuthService from "../services/AuthService";
+import history from "../services/History";
 import StorageService from "../services/StorageService";
 import AdminPanel from "./Admin/AdminPanel";
 import VoterPanel from "./Voter/VoterPanel";
@@ -24,7 +25,11 @@ class Login extends React.Component {
       AuthService.onLogin(rollNo, password)
         .then((response) => {
           if (response.user) {
-            this.setState({ user: response.user });
+            if (response.user.type === "A") {
+              history.push("/admin");
+            } else if (response.user.type === "V") {
+              history.push("/voter");
+            }
           }
         })
         .catch((e) => {
@@ -34,117 +39,69 @@ class Login extends React.Component {
   };
 
   render() {
-    let user = StorageService.getUser() || this.state.user;
-    if (user) {
-      if (user.type === "V") {
-        return <VoterPanel user={user} />;
-      } else if (user.type === "A") {
-        return <AdminPanel user={user} />;
-      }
-    } else {
-      return (
+    return (
+      <div
+        style={{ height: "100vh" }}
+        className="d-flex justify-content-center align-items-center mt-1"
+      >
         <div
-          style={{ height: "100vh" }}
-          className="d-flex justify-content-center align-items-center mt-1"
+          style={{ width: 370 }}
+          className="card form-card form-card--style-2"
         >
-          {/* <div
-            style={{
-              border: "1px solid #ddd",
-              width: 300,
-              padding: 10,
-              backgroundColor: "white",
-            }}
-          >
-            <div className="d-flex justify-content-center align-items-center">
-              <h5>Login</h5>
-            </div>
-            <hr />
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control form-control-md"
-                placeholder="  Roll no"
-                style={{ border: "1px solid #ccc", width: "100%" }}
-                onChange={this.onChangeRollNo}
-              ></input>
-            </div>
-
-            <div className="mb-3">
-              <input
-                type="password"
-                className="form-control form-control-md"
-                placeholder="  Password"
-                style={{ border: "1px solid #ccc", width: "100%" }}
-                onChange={this.onChangePassword}
-              ></input>
-            </div>
-            <div>
-              <button className="btn btn-success btn-sm" onClick={this.onLogin}>
-                Login
-              </button>
-            </div>
-          </div> */}
-
-          <div
-            style={{ width: 370 }}
-            className="card form-card form-card--style-2"
-          >
-            <div className="form-header text-center">
-              <div className="form-header-icon">
-                <i className="fa fa-sign-in" aria-hidden="true"></i>
-              </div>
-            </div>
-            <div style={{ padding: 50 }} className="form-body">
-              <div className="text-center px-2">
-                <h4 className="heading heading-4 strong-400 mb-4">
-                  Sign in to your account
-                </h4>
-              </div>
-
-              <form
-                className="form-default"
-                role="form"
-                onSubmit={this.submitForm}
-              >
-                <div className="row">
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label style={{ float: "left" }}>Roll no</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        onChange={this.onChangeRollNo}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="form-group has-feedback">
-                      <label style={{ float: "left" }}>Password</label>
-                      <input
-                        type="password"
-                        className="form-control form-control-lg"
-                        onChange={this.onChangePassword}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  className="btn btn-styled btn-lg btn-block btn-base-1 mt-4"
-                  type="submit"
-                  // onClick={this.onLogin}
-                >
-                  Sign in
-                </button>
-              </form>
+          <div className="form-header text-center">
+            <div className="form-header-icon">
+              <i className="fa fa-sign-in" aria-hidden="true"></i>
             </div>
           </div>
+          <div style={{ padding: 50 }} className="form-body">
+            <div className="text-center px-2">
+              <h4 className="heading heading-4 strong-400 mb-4">
+                Sign in to your account
+              </h4>
+            </div>
+
+            <form
+              className="form-default"
+              role="form"
+              onSubmit={this.submitForm}
+            >
+              <div className="row">
+                <div className="col-12">
+                  <div className="form-group">
+                    <label style={{ float: "left" }}>Roll no</label>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      onChange={this.onChangeRollNo}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="form-group has-feedback">
+                    <label style={{ float: "left" }}>Password</label>
+                    <input
+                      type="password"
+                      className="form-control form-control-lg"
+                      onChange={this.onChangePassword}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button
+                className="btn btn-styled btn-lg btn-block btn-base-1 mt-4"
+                type="submit"
+              >
+                Sign in
+              </button>
+            </form>
+          </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

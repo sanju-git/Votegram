@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import PollService from "../services/PollService";
 
 // const candidates = [
@@ -18,7 +19,7 @@ class VotingPage extends React.Component {
   };
 
   getCandidates = () => {
-    let { pollId } = this.props;
+    let { pollId } = this.props.match.params;
     PollService.getCandidates(pollId).then((response) => {
       if (response.candidates) {
         this.setState({ candidates: response.candidates });
@@ -29,7 +30,7 @@ class VotingPage extends React.Component {
   };
 
   onVote = (index) => {
-    let { pollId } = this.props;
+    let { pollId } = this.props.match.params;
     let { candidates } = this.state;
     let votedCandidate = candidates[index];
     PollService.castVote(votedCandidate.id, pollId).then((response) => {
@@ -114,6 +115,9 @@ class VotingPage extends React.Component {
             }}
           >
             {message}
+            <NavLink to="/voter">
+              <span>Back to Dashboard</span>
+            </NavLink>
           </div>
         </div>
       );
